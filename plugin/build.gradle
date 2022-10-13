@@ -1,0 +1,46 @@
+plugins {
+    id 'groovy'
+    id 'maven-publish'
+}
+
+
+dependencies {
+    //gradle sdk
+    implementation gradleApi()
+    //groovy sdk
+    implementation localGroovy()
+}
+
+afterEvaluate {
+
+}
+
+//定义插件的在本地 maven 中的 id
+publishing {
+    repositories {
+        maven {
+            // 发布位置
+            url uri('/Volumes/Android/repository')
+//            //指定要上传的maven私服仓库
+//            url = "http://jenkins.maxrocky.com:8080/maven/content/repositories/thirdparty/"
+            // 允许使用 http
+//            allowInsecureProtocol = true
+//            //认证用户和密码
+//            credentials {
+//                username 'admin'
+//                password 'maxrocky5721'
+//            }
+        }
+    }
+
+    publications {
+        mavenJava(MavenPublication) {
+            groupId 'com.moon'
+            artifactId 'plugin'
+            //定义插件的在本地 maven 中的版本号
+            version '1.0.1'
+            from components.java
+        }
+    }
+}
+

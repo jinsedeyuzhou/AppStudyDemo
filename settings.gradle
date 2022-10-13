@@ -1,0 +1,30 @@
+pluginManagement {
+    repositories {
+        maven {
+            url uri('/Volumes/Android/repository')
+        }
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.namespace == "com.moon") {
+                useModule("com.moon:plugin:1.0.1")
+            }
+        }
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven {
+            url uri('/Volumes/Android/repository')
+        }
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "AppStudyDemo"
+include ':app'
+include ':plugin'
