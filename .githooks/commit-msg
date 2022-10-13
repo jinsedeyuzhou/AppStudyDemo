@@ -35,11 +35,16 @@ showExampleMsg(){
 	echo "	docs: Add schema useage demo"
 }
 
+pattern="^(((feat)|(docs)|(fix)|(style)|(refactor)|(test)|(chore)|(coding))(\(.*\))?:){1}"
+
+msg_pattern="^(((fix))(\(.*\))?:){1}"
+story_pattern="((--story=[0-9]+)|(--task=[0-9]+)|(--bug=[0-9]+))+"
+
 commit_msg=$(cat "${1:?Missing commit message file}")
 valid=0
-if [[ $commit_msg =~ ^(((feat)|(docs)|(fix)|(style)|(refactor)|(test)|(chore)|(coding))(\(.*\))?:){1} ]]; then
-	if [[ $commit_msg =~ ^(((feat)|(fix))(\(.*\))?:){1} ]]; then
-		if [[ ! $commit_msg =~ ((--story=[0-9]+)|(--task=[0-9]+)|(--bug=[0-9]+))+ ]]; then
+if [[ $commit_msg =~ $pattern ]];  then
+	if [[ $commit_msg =~ $msg_pattern ]]; then
+		if [[ ! "${commit_msg}" =~ $story_pattern ]]; then
 			cecho "RED"  "请带上 xxx 相关信息!!!!!!"
 			showPrefixMsg
 			showExampleMsg
