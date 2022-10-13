@@ -11,9 +11,6 @@ dependencies {
     implementation localGroovy()
 }
 
-afterEvaluate {
-
-}
 
 //定义插件的在本地 maven 中的 id
 publishing {

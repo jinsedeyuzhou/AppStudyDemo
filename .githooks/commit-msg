@@ -59,5 +59,3 @@ else
 	showFailMsg
 	exit 1
 fi
-
-
