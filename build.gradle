@@ -19,7 +19,7 @@ allprojects {
 task copyGitHooks(type: Copy,description: "Copy the git hooks script to the .git/hooks directory.")
 {
     from '.githooks'
-    into '../.git/hooks'
+    into '.git/hooks'
     eachFile { file ->
         file.setMode(0755)
     }
