@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# 一个用于校验是否存在提交了不应该修改的文件的 Git Hook 脚本
+# 如果存在，则禁止 Commit
+
+# 代码样式为大家共用的样式，因此不应该修改
+CODE_STYLE_DIR=".idea/codeStyle"
+
+git diff --cached --name-only | if grep --quiet "$CODE_STYLE_DIR"
+then
+  	cat <<\EOF
+Commit 失败: 禁止修改 .idea/codeStyle 目录下的文件!
+
+请还原后再次提交!
+
+EOF
+	exit 1
+fi

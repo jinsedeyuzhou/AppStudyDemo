@@ -4,3 +4,23 @@ plugins {
     id 'com.android.library' version '7.3.0' apply false
 }
 
+task copyGitHooks(type: Copy,description: "Copy the git hooks script to the .git/hooks directory.")
+{
+    from '../.githooks'
+    into '../.git/hooks'
+    eachFile { file ->
+        file.setMode(0755)
+    }
+}
+
+//copyGitHooks.dependsOn assemble
+
+allprojects {
+    afterEvaluate { project ->
+        project.tasks.whenTaskAdded { task ->
+            if (task.name == "preDebugBuild") {
+                task.dependsOn(rootProject.tasks.named("copyGitHooks"))
+            }
+        }
+    }
+}
